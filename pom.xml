@@ -67,6 +67,10 @@
         </plugins>
     </build>
 
+    <scm>
+        <connection>scm:git:ssh://git@test.cupenya.com:7999/cpy/cupenya-agent-common.git</connection>
+    </scm>
+
 
     <distributionManagement>
         <repository>
