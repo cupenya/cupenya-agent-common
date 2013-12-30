@@ -10,6 +10,9 @@
     <packaging>jar</packaging>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.testSourceEncoding>UTF-8</project.build.testSourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <typesafe-config.version>1.0.0</typesafe-config.version>
         <slf4j.version>1.6.2</slf4j.version>
     </properties>
