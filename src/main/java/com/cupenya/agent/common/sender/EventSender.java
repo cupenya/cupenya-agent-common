@@ -2,8 +2,8 @@ package com.cupenya.agent.common.sender;
 
 import com.cupenya.agent.common.CommonConfig;
 import com.cupenya.agent.common.queue.MemoryFileBackedQueue;
-import com.cupenya.agent.common.v1.DefaultEvent;
-import com.cupenya.agent.common.v1.EventApiKeyWrapper;
+import com.cupenya.agent.common.model.v1.DefaultEvent;
+import com.cupenya.agent.common.model.v1.EventApiKeyWrapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;

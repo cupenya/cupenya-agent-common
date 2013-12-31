@@ -1,4 +1,4 @@
-package com.cupenya.agent.common.v1;
+package com.cupenya.agent.common.model.v1;
 
 /**
  * The different event types handled by the engine.
