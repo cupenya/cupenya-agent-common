@@ -44,7 +44,7 @@ public class EventSender {
                             try {
                                 sendEvent(event);
                             } catch (IOException ex) {
-
+                                log.error("Re-queuing event '" + event.getId() + "', because send failed with: " + ex.getMessage());
                                 queueEvent(event);
                                 Thread.sleep(5 * 1000);
                                 errors++;
