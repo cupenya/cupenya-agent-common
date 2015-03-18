@@ -7,78 +7,79 @@ import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 
 public class FileBackedQueue {
-    private RandomAccessFile m_file;
 
-    public FileBackedQueue(File f) throws IOException {
-        if (!f.exists()) {
-            f.createNewFile();
-        }
+  private RandomAccessFile m_file;
 
-        m_file = new RandomAccessFile(f, "rw");
+  public FileBackedQueue(File f) throws IOException {
+    if (!f.exists()) {
+      f.createNewFile();
     }
 
-    public int size() {
-        int retValue = 0;
+    m_file = new RandomAccessFile(f, "rw");
+  }
 
-        try {
-            if (0 < m_file.length()) {
-                retValue = 1;
-            }
-        } catch (IOException e) {
-            // TODO: handle / wrap in better exception
-            throw new RuntimeException("Could not write to queue: " + e.getMessage(), e);
-        }
+  public int size() {
+    int retValue = 0;
 
-        return retValue;
+    try {
+      if (0 < m_file.length()) {
+        retValue = 1;
+      }
+    } catch (IOException e) {
+      // TODO: handle / wrap in better exception
+      throw new RuntimeException("Could not write to queue: " + e.getMessage(), e);
     }
 
-    public boolean offer(ByteBuffer buffer) {
-        boolean retValue = false;
+    return retValue;
+  }
 
-        try {
-            m_file.seek(m_file.length());
-            m_file.writeInt(buffer.capacity());
-            m_file.write(buffer.array());
+  public boolean offer(ByteBuffer buffer) {
+    boolean retValue = false;
 
-            retValue = true;
-        } catch (IOException e) {
-            // TODO: handle / wrap in better exception
-            throw new RuntimeException("Could not write to queue: " + e.getMessage(), e);
-        }
+    try {
+      m_file.seek(m_file.length());
+      m_file.writeInt(buffer.capacity());
+      m_file.write(buffer.array());
 
-        return retValue;
+      retValue = true;
+    } catch (IOException e) {
+      // TODO: handle / wrap in better exception
+      throw new RuntimeException("Could not write to queue: " + e.getMessage(), e);
     }
 
-    public ByteBuffer poll() {
-        ByteBuffer retBuffer = null;
+    return retValue;
+  }
 
-        try {
-            if (0 < m_file.length()) {
-                long positionBeforeRead = m_file.getFilePointer();
-                m_file.seek(0L);
-                int arraySize = m_file.readInt();
-                byte array[] = new byte[arraySize];
-                m_file.read(array);
-                long positionAfterRead = m_file.getFilePointer();
+  public ByteBuffer poll() {
+    ByteBuffer retBuffer = null;
 
-                assert (positionAfterRead <= positionBeforeRead);
+    try {
+      if (0 < m_file.length()) {
+        long positionBeforeRead = m_file.getFilePointer();
+        m_file.seek(0L);
+        int arraySize = m_file.readInt();
+        byte array[] = new byte[arraySize];
+        m_file.read(array);
+        long positionAfterRead = m_file.getFilePointer();
 
-                // Compact file
-                long fileLength = m_file.length();
-                byte remaining[] = new byte[(int) (fileLength - positionAfterRead)];
-                m_file.readFully(remaining);
-                m_file.setLength(0L);
-                m_file.write(remaining);
+        assert (positionAfterRead <= positionBeforeRead);
 
-                retBuffer = ByteBuffer.allocate(array.length);
-                retBuffer.put(array);
-                retBuffer.flip();
-            }
-        } catch (IOException e) {
-            // TODO: handle / wrap in better exception
-            throw new RuntimeException("Could not write to queue: " + e.getMessage(), e);
-        }
+        // Compact file
+        long fileLength = m_file.length();
+        byte remaining[] = new byte[(int) (fileLength - positionAfterRead)];
+        m_file.readFully(remaining);
+        m_file.setLength(0L);
+        m_file.write(remaining);
 
-        return retBuffer;
+        retBuffer = ByteBuffer.allocate(array.length);
+        retBuffer.put(array);
+        retBuffer.flip();
+      }
+    } catch (IOException e) {
+      // TODO: handle / wrap in better exception
+      throw new RuntimeException("Could not write to queue: " + e.getMessage(), e);
     }
+
+    return retBuffer;
+  }
 }
