@@ -8,6 +8,18 @@
   <version>0.1.5-SNAPSHOT</version>
   <packaging>jar</packaging>
 
+  <name>Cupenya Agent Common</name>
+  <description>A set of common classes for Cupenya agent development that is shared between different JVM based implementations.</description>
+  <url>https://github.com/cupenya/cupenya-agent-common</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.testSourceEncoding>UTF-8</project.build.testSourceEncoding>
@@ -67,20 +79,6 @@
   </build>
 
   <scm>
-    <connection>scm:git:ssh://git@test.cupenya.com:7999/cpy/cupenya-agent-common.git</connection>
+    <connection>scm:git:ssh://git@github.com:cupenya/cupenya-agent-common.git</connection>
   </scm>
-
-
-  <distributionManagement>
-    <repository>
-      <id>cupenya.releases</id>
-      <url>https://test.cupenya.com/nexus/content/repositories/releases</url>
-    </repository>
-    <snapshotRepository>
-      <id>cupenya.snapshots</id>
-      <url>https://test.cupenya.com/nexus/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement>
-
-
 </project>
