@@ -134,6 +134,7 @@
 
   <scm>
     <connection>scm:git:git@github.com:cupenya/cupenya-agent-common.git</connection>
+    <url>https://github.com/cupenya/cupenya-agent-common.git</url>
   </scm>
 
   <distributionManagement>
